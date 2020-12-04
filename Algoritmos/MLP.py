@@ -18,15 +18,16 @@ class MLP:
         acc = metrics.accuracy_score(result, y_test)
         show = round(acc * 100)
 
-        #Printing results
-        print(f'\nMLP Architecture - {name}  =======================================================================')
-        print(f'Activation = {activation.upper()} - Architecture {architecture}')
-        print(f'The accuracy is {show} %')
-        print(f'{list(result)}')
-        print(f'{list(y_test)}')
+        # #Printing results
+        # print(f'\nMLP Architecture - {name}  =======================================================================')
+        # print(f'Activation = {activation.upper()} - Architecture {architecture}')
+        # print(f'The accuracy is {show} %')
+        # print(f'{list(result)}')
+        # print(f'{list(y_test)}')
 
         dic = {
             "result": result,
+            "acc": acc,
             "show": show
         }
 

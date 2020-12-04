@@ -2,6 +2,8 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split
 from sklearn import metrics
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import StratifiedKFold
 
 def load_from_data(data_name):
     if data_name == "waveform":
@@ -36,8 +38,30 @@ def load_from_data(data_name):
     X = dataset[feature_cols]  # Atributos (Features)
     y = dataset.label  # Saída
 
-    x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=None,
-                                                        stratify=y)  # 80% treino e 20% teste
+    X = np.array(X)
+    y = np.array(y)
+
+    folds = 10
+
+    kf = StratifiedKFold(n_splits=folds)
+
+    ## 10 conjuntos de dados
+    x_train = []
+    y_train = []
+
+    x_test = []
+    y_test = []
+
+    for train_index, test_index in kf.split(X, y):
+        x_train.append(X[train_index])
+        x_test.append(X[test_index])
+
+        y_train.append(y[train_index])
+        y_test.append(y[test_index])
+
+    #OLD CODE
+    # x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=None,
+    #                                                     stratify=y)  # 80% treino e 20% teste
 
     dic = {
         "x_train": x_train,
