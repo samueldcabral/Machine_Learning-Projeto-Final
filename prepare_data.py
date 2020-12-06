@@ -59,15 +59,23 @@ def load_from_data(data_name):
         y_train.append(y[train_index])
         y_test.append(y[test_index])
 
-    #OLD CODE
+
+    # # OLD CODE
     # x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=None,
     #                                                     stratify=y)  # 80% treino e 20% teste
 
+    # print(x_train)
+    # print("\n p[repare")
+
+    # print("x_train prepare")
+    # print(x_train)
+    # print("x_train list prepare")
+    # print(list(x_train))
     dic = {
-        "x_train": x_train,
-        "x_test": x_test,
-        "y_train": y_train,
-        "y_test": y_test
+        "x_train": list(x_train),
+        "x_test": list(x_test),
+        "y_train": list(y_train),
+        "y_test": list(y_test)
     }
 
     return dic
