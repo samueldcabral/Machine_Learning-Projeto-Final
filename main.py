@@ -16,199 +16,186 @@ x_test = "x_test"
 y_train = "y_train"
 y_test = "y_test"
 
-folds = 10
-
-# USING KFOLD TO TRAIN THE ALGORITHMS
-# results_decision_tree = [
-#     {"waveform-gini" : [acc]},
-#     {"waveform-entro"} : [acc]
-# ]
-# results_knn = []
-# results_mlp = []
-# results_kmeans = []
+folds = 1
 
 #decision tree
-acc_waveform_gini = []
-acc_segmentation_gini = []
-acc_pen_gini = []
-acc_waveform_entropy = []
-acc_segmentation_entropy = []
-acc_pen_entropy = []
+results_waveform_gini = []
+results_segmentation_gini = []
+results_pen_gini = []
+results_waveform_entropy = []
+results_segmentation_entropy = []
+results_pen_entropy = []
 
 #knn
-acc_waveform_5 = []
-acc_segmentation_5 = []
-acc_pen_5 = []
-acc_waveform_10 = []
-acc_segmentation_10 = []
-acc_pen_10 = []
+results_waveform_5 = []
+results_segmentation_5 = []
+results_pen_5 = []
+results_waveform_10 = []
+results_segmentation_10 = []
+results_pen_10 = []
 
 #mlp
 #relu
-acc_waveform_arq1_relu = []
-acc_segmentation_arq1_relu = []
-acc_pen_arq1_relu = []
-acc_waveform_arq2_relu = []
-acc_segmentation_arq2_relu = []
-acc_pen_arq2_relu = []
+results_waveform_arq1_relu = []
+results_segmentation_arq1_relu = []
+results_pen_arq1_relu = []
+results_waveform_arq2_relu = []
+results_segmentation_arq2_relu = []
+results_pen_arq2_relu = []
 #tanh
-acc_waveform_arq1_tanh = []
-acc_segmentation_arq1_tanh = []
-acc_pen_arq1_tanh = []
-acc_waveform_arq2_tanh = []
-acc_segmentation_arq2_tanh = []
-acc_pen_arq2_tanh = []
+results_waveform_arq1_tanh = []
+results_segmentation_arq1_tanh = []
+results_pen_arq1_tanh = []
+results_waveform_arq2_tanh = []
+results_segmentation_arq2_tanh = []
+results_pen_arq2_tanh = []
 
 #kmeans
-acc_waveform_kmeans = []
-acc_segmentation_kmeans = []
-acc_pen_kmeans = []
+results_waveform_kmeans = []
+results_segmentation_kmeans = []
+results_pen_kmeans = []
 
 for i in range(folds):
-  # model = MLPClassifier(hidden_layer_sizes=(3,2), activation='tanh',max_iter=3000, random_state=1)
-  # model = model.fit(X_train[i], y_train[i])
-  # result = model.predict(X_test[i])
-  # acc = metrics.accuracy_score(result, y_test[i])
-  # results.append(acc)
-
+    print(i)
     # DECISION TREE =============================================================================================================
     # GINI
-    decision_tree_waveform_gini = DecisionTree().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test])
-    decision_tree_segmentation_gini = DecisionTree().run("Segmentation", segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test])
-    decision_tree_pen_gini = DecisionTree().run("Pen-based Recognition", pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test])
+    decision_tree_waveform_gini = DecisionTree().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i])
+    decision_tree_segmentation_gini = DecisionTree().run("Segmentation", segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i])
+    decision_tree_pen_gini = DecisionTree().run("Pen-based Recognition", pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i])
 
     #Entropy
-    decision_tree_waveform_entropy = DecisionTree().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test], "entropy")
-    decision_tree_segmentation_entropy = DecisionTree().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test], "entropy")
-    decision_tree_pen_entropy = DecisionTree().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test], "entropy")
+    decision_tree_waveform_entropy = DecisionTree().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i], "entropy")
+    decision_tree_segmentation_entropy = DecisionTree().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i], "entropy")
+    decision_tree_pen_entropy = DecisionTree().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i], "entropy")
 
     #Saving the metrics
-    acc_waveform_gini.append(decision_tree_waveform_gini["acc"])
-    acc_segmentation_gini.append(decision_tree_segmentation_gini["acc"])
-    acc_pen_gini.append(decision_tree_pen_gini["acc"])
-    acc_waveform_entropy.append(decision_tree_waveform_entropy["acc"])
-    acc_segmentation_entropy.append(decision_tree_segmentation_entropy["acc"])
-    acc_pen_entropy.append(decision_tree_pen_entropy["acc"])
+    results_waveform_gini.append(decision_tree_waveform_gini["acc"])
+    results_segmentation_gini.append(decision_tree_segmentation_gini["acc"])
+    results_pen_gini.append(decision_tree_pen_gini["acc"])
+    results_waveform_entropy.append(decision_tree_waveform_entropy["acc"])
+    results_segmentation_entropy.append(decision_tree_segmentation_entropy["acc"])
+    results_pen_entropy.append(decision_tree_pen_entropy["acc"])
 
-    # KNN =====================================================================================================
-    # K = 5
-    knn_waveform_5 = KNN().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test])
-    knn_segmentation_5 = KNN().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test])
-    knn_pen_5 = KNN().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test])
+    # # KNN =====================================================================================================
+    # # K = 5
+    knn_waveform_5 = KNN().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i])
+    knn_segmentation_5 = KNN().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i])
+    knn_pen_5 = KNN().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i])
 
     # K = 10
-    knn_waveform_10 = KNN().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test], 10)
-    knn_segmentation_10 = KNN().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test], 10)
-    knn_pen_10 = KNN().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test], 10)
+    knn_waveform_10 = KNN().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i], 10)
+    knn_segmentation_10 = KNN().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i], 10)
+    knn_pen_10 = KNN().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i], 10)
 
     #Saving the metrics
-    acc_waveform_5.append(knn_waveform_5["acc"])
-    acc_segmentation_5.append(knn_segmentation_5["acc"])
-    acc_pen_5.append(knn_pen_5["acc"])
-    acc_waveform_10.append(knn_waveform_10["acc"])
-    acc_segmentation_10.append(knn_segmentation_10["acc"])
-    acc_pen_10.append(knn_pen_10["acc"])
-#
+    results_waveform_5.append(knn_waveform_5["acc"])
+    results_segmentation_5.append(knn_segmentation_5["acc"])
+    results_pen_5.append(knn_pen_5["acc"])
+    results_waveform_10.append(knn_waveform_10["acc"])
+    results_segmentation_10.append(knn_segmentation_10["acc"])
+    results_pen_10.append(knn_pen_10["acc"])
+
     # MLP =====================================================================================================
     # Relu
+    plot = False
+
+    if i == 0:
+        plot = True
     # Arquitetura 1
-    mlp_waveform_1_relu = MLP().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test], "relu")
-    mlp_segmentation_1_relu = MLP().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test], "relu")
-    mlp_pen_1_relu = MLP().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test], "relu")
+    mlp_waveform_1_relu = MLP().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i], "relu", plot)
+    mlp_segmentation_1_relu = MLP().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i], "relu", plot)
+    mlp_pen_1_relu = MLP().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i], "relu", plot)
 
     # Arquitetura 2
-    mlp_waveform_2_relu = MLP().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test], "relu", 2)
-    mlp_segmentation_2_relu = MLP().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test], "relu", 2)
-    mlp_pen_2_relu = MLP().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test], "relu", 2)
+    mlp_waveform_2_relu = MLP().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i], "relu",plot, 2)
+    mlp_segmentation_2_relu = MLP().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i], "relu",plot, 2)
+    mlp_pen_2_relu = MLP().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i], "relu",plot, 2)
 
     # Tanh
     # Arquitetura 1
-    mlp_waveform_1_tanh = MLP().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test], "tanh")
-    mlp_segmentation_1_tanh = MLP().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test], "tanh")
-    mlp_pen_1_tanh = MLP().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test], "tanh")
+    mlp_waveform_1_tanh = MLP().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i], "tanh", plot)
+    mlp_segmentation_1_tanh = MLP().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i], "tanh", plot)
+    mlp_pen_1_tanh = MLP().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i], "tanh", plot)
 
     # Arquitetura 2
-    mlp_waveform_2_tanh =MLP().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test], "tanh", 2)
-    mlp_segmentation_2_tanh = MLP().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test], "tanh", 2)
-    mlp_pen_2_tanh = MLP().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test], "tanh", 2)
+    mlp_waveform_2_tanh =MLP().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i], "tanh", plot, 2)
+    mlp_segmentation_2_tanh = MLP().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i], "tanh", plot, 2)
+    mlp_pen_2_tanh = MLP().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i], "tanh", plot, 2)
 
     # Saving the metrics
     # relu
-    acc_waveform_arq1_relu.append(mlp_waveform_1_relu["acc"])
-    acc_segmentation_arq1_relu.append(mlp_segmentation_1_relu["acc"])
-    acc_pen_arq1_relu.append(mlp_pen_1_relu["acc"])
-    acc_waveform_arq2_relu.append(mlp_waveform_2_relu["acc"])
-    acc_segmentation_arq2_relu.append(mlp_segmentation_2_relu["acc"])
-    acc_pen_arq2_relu.append(mlp_pen_2_relu["acc"])
+    results_waveform_arq1_relu.append(mlp_waveform_1_relu["acc"])
+    results_segmentation_arq1_relu.append(mlp_segmentation_1_relu["acc"])
+    results_pen_arq1_relu.append(mlp_pen_1_relu["acc"])
+    results_waveform_arq2_relu.append(mlp_waveform_2_relu["acc"])
+    results_segmentation_arq2_relu.append(mlp_segmentation_2_relu["acc"])
+    results_pen_arq2_relu.append(mlp_pen_2_relu["acc"])
 
     # tanh
-    acc_waveform_arq1_tanh.append(mlp_waveform_1_tanh["acc"])
-    acc_segmentation_arq1_tanh.append(mlp_segmentation_1_tanh["acc"])
-    acc_pen_arq1_tanh.append(mlp_pen_1_tanh["acc"])
-    acc_waveform_arq2_tanh.append(mlp_waveform_2_tanh["acc"])
-    acc_segmentation_arq2_tanh.append(mlp_segmentation_2_tanh["acc"])
-    acc_pen_arq2_tanh.append(mlp_pen_2_tanh["acc"])
+    results_waveform_arq1_tanh.append(mlp_waveform_1_tanh["acc"])
+    results_segmentation_arq1_tanh.append(mlp_segmentation_1_tanh["acc"])
+    results_pen_arq1_tanh.append(mlp_pen_1_tanh["acc"])
+    results_waveform_arq2_tanh.append(mlp_waveform_2_tanh["acc"])
+    results_segmentation_arq2_tanh.append(mlp_segmentation_2_tanh["acc"])
+    results_pen_arq2_tanh.append(mlp_pen_2_tanh["acc"])
 
 
     # K MEANS =====================================================================================================
-    kmeans_waveform = K_Means().run("WaveForm", waveform_train[x_train], waveform_train[x_test], waveform_train[y_train], waveform_train[y_test])
-    kmeans_segmentation = K_Means().run("Segmentation",segmentation_train[x_train], segmentation_train[x_test], segmentation_train[y_train], segmentation_train[y_test])
-    kmeans_pen = K_Means().run("Pen-based Recognition",pen_train[x_train], pen_train[x_test], pen_train[y_train], pen_train[y_test])
+    kmeans_waveform = K_Means().run("WaveForm", waveform_train[x_train][i], waveform_train[x_test][i], waveform_train[y_train][i], waveform_train[y_test][i])
+    kmeans_segmentation = K_Means().run("Segmentation",segmentation_train[x_train][i], segmentation_train[x_test][i], segmentation_train[y_train][i], segmentation_train[y_test][i])
+    kmeans_pen = K_Means().run("Pen-based Recognition",pen_train[x_train][i], pen_train[x_test][i], pen_train[y_train][i], pen_train[y_test][i])
 
     # Saving the metrics
-    acc_waveform_kmeans.append(kmeans_waveform["acc"])
-    acc_segmentation_kmeans.append(kmeans_segmentation["acc"])
-    acc_pen_kmeans.append(kmeans_pen["acc"])
+    results_waveform_kmeans.append(kmeans_waveform["acc"])
+    results_segmentation_kmeans.append(kmeans_segmentation["acc"])
+    results_pen_kmeans.append(kmeans_pen["acc"])
 
-print("\n\n\n")
-print("******************************************************************************")
-print("******************************** RESULTADOS AVORE GINI ********************************\n")
-print(f'\nThe result for {acc_waveform_gini.__str__()} is {round(np.mean(acc_waveform_gini) * 100)}%')
-print(f'\nThe result for {acc_segmentation_gini.__str__()} is {round(np.mean(acc_segmentation_gini) * 100)}%')
-print(f'\nThe result for {acc_pen_gini.__str__()} is {round(np.mean(acc_pen_gini) * 100)}%')
 
-print("******************************** RESULTADOS AVORE ENTROPY ********************************\n")
-print(f'\nThe result for {acc_waveform_entropy.__str__()} is {round(np.mean(acc_waveform_entropy) * 100)}%')
-print(f'\nThe result for {acc_segmentation_entropy.__str__()} is {round(np.mean(acc_segmentation_entropy) * 100)}%')
-print(f'\nThe result for {acc_pen_entropy.__str__()} is {round(np.mean(acc_pen_entropy) * 100)}%')
+def show(name, results):
+  print("************************************************************")
+  print(f'{name}: {round(np.mean(results) * 100)}%')
 
-print("\n\n\n")
-print("******************************************************************************")
-print("******************************** RESULTADOS KNN 5 ********************************\n")
-print(f'\nThe result for {acc_waveform_5.__str__()} is {round(np.mean(acc_waveform_5) * 100)}%')
-print(f'\nThe result for {acc_segmentation_5.__str__()} is {round(np.mean(acc_segmentation_5) * 100)}%')
-print(f'\nThe result for {acc_pen_5.__str__()} is {round(np.mean(acc_pen_5) * 100)}%')
+print(f'\n************************ RESULTADOS DA AVORE GINI ************************************')
+show("Waveform Gini", results_waveform_gini)
+show("Segmentation Gini", results_segmentation_gini)
+show("Pen Gini", results_pen_gini)
 
-print("******************************** RESULTADOS KNN 10 ********************************\n")
-print(f'\nThe result for {acc_waveform_10.__str__()} is {round(np.mean(acc_waveform_10) * 100)}%')
-print(f'\nThe result for {acc_segmentation_10.__str__()} is {round(np.mean(acc_segmentation_10) * 100)}%')
-print(f'\nThe result for {acc_pen_10.__str__()} is {round(np.mean(acc_pen_10) * 100)}%')
+print("\n******************************** RESULTADOS AVORE ENTROPY ********************************")
+show("Waveform Entropy", results_waveform_entropy)
+show("Segmentation Entropy", results_segmentation_entropy)
+show("Pen Entropy", results_pen_entropy)
 
-print("\n\n\n")
-print("******************************************************************************")
-print("******************************** RESULTADOS MLP RELU ARQUITETURA 1 ********************************\n")
-print(f'\nThe result for {acc_waveform_arq1_relu.__str__()} is {round(np.mean(acc_waveform_arq1_relu) * 100)}%')
-print(f'\nThe result for {acc_segmentation_arq1_relu.__str__()} is {round(np.mean(acc_segmentation_arq1_relu) * 100)}%')
-print(f'\nThe result for {acc_pen_arq1_relu.__str__()} is {round(np.mean(acc_pen_arq1_relu) * 100)}%')
+print("\n******************************** RESULTADOS KNN 5 ********************************")
+show("Waveform Knn 5", results_waveform_5)
+show("Segmentation Knn 5", results_segmentation_5)
+show("Pen Knn 5", results_pen_5)
 
-print("******************************** RESULTADOS MLP RELU ARQUITETURA 2 ********************************\n")
-print(f'\nThe result for {acc_waveform_arq2_relu.__str__()} is {round(np.mean(acc_waveform_arq2_relu) * 100)}%')
-print(f'\nThe result for {acc_segmentation_arq2_relu.__str__()} is {round(np.mean(acc_segmentation_arq2_relu) * 100)}%')
-print(f'\nThe result for {acc_pen_arq2_relu.__str__()} is {round(np.mean(acc_pen_arq2_relu) * 100)}%')
+print("\n******************************** RESULTADOS KNN 10 ********************************")
+show("Waveform Knn 10", results_waveform_10)
+show("Segmentation Knn 10", results_segmentation_10)
+show("Pen Knn 10", results_pen_10)
 
-print("******************************** RESULTADOS MLP TANH ARQUITETURA 1 ********************************\n")
-print(f'\nThe result for {acc_waveform_arq1_tanh.__str__()} is {round(np.mean(acc_waveform_arq1_tanh) * 100)}%')
-print(f'\nThe result for {acc_segmentation_arq1_tanh.__str__()} is {round(np.mean(acc_segmentation_arq1_tanh) * 100)}%')
-print(f'\nThe result for {acc_pen_arq1_tanh.__str__()} is {round(np.mean(acc_pen_arq1_tanh) * 100)}%')
+print("\n******************************** RESULTADOS MLP RELU ARQUITETURA 1 ********************************")
+show("Waveform RELU ARQUITETURA 1", results_waveform_arq1_relu)
+show("Segmentation RELU ARQUITETURA 1", results_segmentation_arq1_relu)
+show("Pen RELU ARQUITETURA 1", results_pen_arq1_relu)
 
-print("******************************** RESULTADOS MLP TANH ARQUITETURA 2 ********************************\n")
-print(f'\nThe result for {acc_waveform_arq2_tanh.__str__()} is {round(np.mean(acc_waveform_arq2_tanh) * 100)}%')
-print(f'\nThe result for {acc_segmentation_arq2_tanh.__str__()} is {round(np.mean(acc_segmentation_arq2_tanh) * 100)}%')
-print(f'\nThe result for {acc_pen_arq2_tanh.__str__()} is {round(np.mean(acc_pen_arq2_tanh) * 100)}%')
+print("\n******************************** RESULTADOS MLP RELU ARQUITETURA 2 ********************************")
+show("Waveform RELU ARQUITETURA 2", results_waveform_arq2_relu)
+show("Segmentation RELU ARQUITETURA 2", results_segmentation_arq2_relu)
+show("Pen RELU ARQUITETURA 2", results_pen_arq2_relu)
 
-print("\n\n\n")
-print("******************************************************************************")
-print("******************************** RESULTADOS K-MEANS ********************************\n")
-print(f'\nThe result for {acc_waveform_kmeans.__str__()} is {round(np.mean(acc_waveform_kmeans) * 100)}%')
-print(f'\nThe result for {acc_segmentation_kmeans.__str__()} is {round(np.mean(acc_segmentation_kmeans) * 100)}%')
-print(f'\nThe result for {acc_pen_kmeans.__str__()} is {round(np.mean(acc_pen_kmeans) * 100)}%')
+print("\n******************************** RESULTADOS MLP TANH ARQUITETURA 1 ********************************")
+show("Waveform TANH ARQUITETURA 1", results_waveform_arq1_tanh)
+show("Segmentation TANH ARQUITETURA 1", results_segmentation_arq1_tanh)
+show("Pen TANH ARQUITETURA 1", results_pen_arq1_tanh)
+
+print("\n******************************** RESULTADOS MLP TANH ARQUITETURA 2 ********************************")
+show("Waveform TANH ARQUITETURA 2", results_waveform_arq2_tanh)
+show("Segmentation TANH ARQUITETURA 2", results_segmentation_arq2_tanh)
+show("Pen TANH ARQUITETURA 2", results_pen_arq2_tanh)
+
+print("\n******************************** RESULTADOS K-MEANS ********************************")
+show("Waveform K-MEANS", results_waveform_kmeans)
+show("Segmentation K-MEANS", results_segmentation_kmeans)
+show("Pen K-MEANS", results_pen_kmeans)

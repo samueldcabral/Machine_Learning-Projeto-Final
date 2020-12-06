@@ -21,7 +21,7 @@ class K_Means:
         for i in range(clusters):
             map_labels.append([])
 
-        new_y_train = y_train.to_list()
+        new_y_train = list(y_train)
 
         for i in range(len(y_train)):
             for c in range(clusters):
